@@ -1,0 +1,10 @@
+query {
+	makers: getXXXList {
+		total
+		items {
+			_contentTypeName
+			_enabledAt
+			name
+		}
+	}
+}

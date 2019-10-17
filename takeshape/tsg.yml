@@ -1,0 +1,20 @@
+templatePath: src/templates
+staticPath: static
+buildPath: build
+
+routes:
+  homepage:
+    path: /
+    template: pages/index.html
+
+  tools:
+    path: /tools
+    template: pages/tools.html
+
+  search:
+    path: /autocomplete
+    template: pages/autocomplete.html
+
+  faceted:
+    path: /faceted
+    template: pages/faceted.html

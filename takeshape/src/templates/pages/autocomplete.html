@@ -1,0 +1,81 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+	<style>
+    .algolia-autocomplete {
+      width: 100%;
+    }
+    .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+      width: 100%;
+    }
+    .algolia-autocomplete .aa-hint {
+      color: #999;
+    }
+    .algolia-autocomplete .aa-dropdown-menu {
+      width: 100%;
+      background-color: #fff;
+      border: 1px solid #999;
+      border-top: none;
+    }
+    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+      cursor: pointer;
+      padding: 5px 4px;
+    }
+    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+      background-color: #B2D7FF;
+    }
+    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+      font-weight: bold;
+      font-style: normal;
+    }
+  </style>
+
+	<section class="hero">
+	  <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">
+	        Your first AutoComplete Search
+	      </h1>
+	      <h2 class="subtitle">
+	        Type a name and see a short list of results.
+	      </h2>
+	    </div>
+			<br>
+			<div class="field">
+				<div class="control is-large is-loading">
+					<form action="#" class="form">
+						<input class="input is-large" id="autocomplete" name="autocomplete" type="text" placeholder="Search by name" />
+					</form>
+				</div>
+			</div>
+			<pre id="autocompleteJSON">Hint: Use the search to find a cheese.</pre>
+		</div>
+
+	</section>
+
+	<script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+
+	<script>
+		var client = algoliasearch('OBBTFVLBPT', 'b2bb1464328d945084725777e82f0536');
+		var index = client.initIndex('cheese');
+		$('#autocomplete').autocomplete({ hint: false }, [
+			{
+				source: $.fn.autocomplete.sources.hits(index, { hitsPerPage: 10 }),
+				displayKey: 'name',
+				templates: {
+					suggestion: function(suggestion) {
+						return suggestion._highlightResult.name.value;
+					}
+				}
+			}
+		]).on('autocomplete:selected', function(event, suggestion, dataset) {
+			var data = JSON.stringify(suggestion, null, '  ');
+			$('#autocompleteJSON').text(data);
+			$('#autocompleteJSON').show();
+    });
+	</script>
+
+{% endblock %}

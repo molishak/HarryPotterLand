@@ -1,0 +1,12 @@
+{
+ "action": "content:create",
+ "meta": {
+   "projectId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+   "userId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+ },
+ "data": {
+   "contentId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+   "contentTypeName": "article",
+   "isSingleton": false
+ }
+}
