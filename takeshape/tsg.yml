@@ -5,7 +5,7 @@ buildPath: build
 routes:
   homepage:
     path: /
-    template: pages/index.html
+    template: pages/search.html
 
   tools:
     path: /tools

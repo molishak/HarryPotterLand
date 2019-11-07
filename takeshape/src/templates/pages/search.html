@@ -1,0 +1,68 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3/dist/instantsearch.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<style>
+		em {
+			font-weight: bold;
+			font-style: normal;
+		}
+
+		.ais-Hits-list {
+			list-style-type: none;
+		}
+
+		.clearfix:after {
+			display:block;
+			clear:both;
+			content:""
+		}
+	</style>
+
+	<div class="container">
+		<div class="columns">
+			<div class="column is-full">
+				<div id="search-query"></div>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-one-fifths">
+
+				<b>Wands</b>
+				<div id="wands" class="facet"></div>
+				<br>
+
+				<b>Magical objects</b>
+				<div id="magical" class="facet"></div>
+
+				<br>
+
+				<b>Plants</b>
+				<div id="plants" class="facet"></div>
+
+				<br>
+
+				<b>Spells</b>
+				<div id="spells" class="facet"></div>
+
+			</div>
+
+			<div class="column is-four-fifths">
+				<div id="stats"></div>
+				<div id="clearAll" style="float: right;"></div>
+				<div id="active-filters"></div>
+				<div id="hits"></div><br>
+				<div id="pagination"></div><br>
+				<div id="powered-by"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.0/dist/algoliasearchLite.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.0.0"></script>
+	<script src="/js/facetedSearch.js"></script>
+
+{% endblock %}

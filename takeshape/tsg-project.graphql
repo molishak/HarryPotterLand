@@ -1,0 +1,1742 @@
+schema {
+  query: Root
+  mutation: Mutations
+}
+
+type Animals implements TSSearchable {
+  name: String
+  description: String
+  photo: [AnimalsPhoto]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  searchSummary: String
+}
+
+type AnimalsPaginatedList {
+  results: [Animals] @deprecated(reason: "Use items instead")
+  items: [Animals]
+  total: Int
+}
+
+type AnimalsPhoto {
+  asset(locale: String, enableLocaleFallback: Boolean = true): Asset
+}
+
+input AnimalsPhotoInput {
+  asset: TSRelationshipInput
+}
+
+"""A Animals search result"""
+type AnimalsSearchResult {
+  searchSummary: String
+  _updatedAt: String
+  _createdAt: String
+  _enabledAt: String
+  _enabled: Boolean
+  name: String
+  description: String
+  _id: String
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+}
+
+"""Animals search results"""
+type AnimalsSearchResults {
+  results: [AnimalsSearchResult]
+  total: Int
+}
+
+"""The built-in TakeShape asset model"""
+type Asset implements TSSearchable {
+  sourceUrl: String
+  path: String!
+  filename: String!
+  description: String
+  caption: JSON
+  captionHtml(
+    imageConfig: JSON
+    images: TSImagesConfig
+
+    """A prefix to be all CSS classes in the generated HTML"""
+    classPrefix: String = ""
+  ): String
+  uploadStatus: String
+  mimeType: String
+  title: String
+  credit: JSON
+  creditHtml(
+    imageConfig: JSON
+    images: TSImagesConfig
+
+    """A prefix to be all CSS classes in the generated HTML"""
+    classPrefix: String = ""
+  ): String
+  s3Key: String @deprecated(reason: "Use path instead")
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  _references(filter: JSON, sort: [TSSearchSort], from: Int, size: Int, locale: String, enableLocaleFallback: Boolean = true): UndefinedReferencePaginatedList
+  animalsSet(filter: JSON, sort: [TSSearchSort], from: Int, size: Int, locale: String, enableLocaleFallback: Boolean = true): AnimalsPaginatedList
+  searchSummary: String
+}
+
+type AssetPaginatedList {
+  results: [Asset] @deprecated(reason: "Use items instead")
+  items: [Asset]
+  total: Int
+}
+
+"""A Asset search result"""
+type AssetSearchResult {
+  searchSummary: String
+  _updatedAt: String
+  _createdAt: String
+  _enabledAt: String
+  _enabled: Boolean
+  sourceUrl: String
+  path: String
+  filename: String
+  description: String
+  uploadStatus: String
+  mimeType: String
+  title: String
+  s3Key: String
+  _id: String
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+}
+
+"""Asset search results"""
+type AssetSearchResults {
+  results: [AssetSearchResult]
+  total: Int
+}
+
+"""The built-in TakeShape asset model"""
+type BaseAsset implements TSSearchable {
+  title: String
+  description: String
+  filename: String!
+  caption: JSON
+  captionHtml(
+    imageConfig: JSON
+    images: TSImagesConfig
+
+    """A prefix to be all CSS classes in the generated HTML"""
+    classPrefix: String = ""
+  ): String
+  credit: JSON
+  creditHtml(
+    imageConfig: JSON
+    images: TSImagesConfig
+
+    """A prefix to be all CSS classes in the generated HTML"""
+    classPrefix: String = ""
+  ): String
+  path: String!
+  s3Key: String @deprecated(reason: "Use path instead")
+  mimeType: String
+  sourceUrl: String
+  uploadStatus: String
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  searchSummary: String
+}
+
+"""Pick which character you'd like to learn about!"""
+type Characters implements TSSearchable {
+  characterName: String
+  characters: CharactersCharacters!
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  searchSummary: String
+}
+
+type CharactersCharacters {
+  description: String
+  categories: String
+}
+
+input CharactersCharactersInput {
+  description: String
+  categories: String
+}
+
+type CharactersPaginatedList {
+  results: [Characters] @deprecated(reason: "Use items instead")
+  items: [Characters]
+  total: Int
+}
+
+"""A Characters search result"""
+type CharactersSearchResult {
+  searchSummary: String
+  _updatedAt: String
+  _createdAt: String
+  _enabledAt: String
+  _enabled: Boolean
+  characterName: String
+  _id: String
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+}
+
+"""Characters search results"""
+type CharactersSearchResults {
+  results: [CharactersSearchResult]
+  total: Int
+}
+
+"""Describes a structural update to an array of data."""
+input ContentStructureInput {
+  """A deep path to the array being updated (e.g. a.b[1].c)."""
+  path: String!
+
+  """
+  An array where the indices represent the to index, and the values represent
+  the from index.For example to transform ["a","b","c","d"] into ["c","a"], this
+  value would be [2,0].
+  """
+  structure: [Int]
+}
+
+"""create Animals input"""
+input CreateAnimalsInput {
+  name: String
+  description: String
+  photo: [AnimalsPhotoInput]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type CreateAnimalsResult {
+  clientMutationId: String
+  result: Animals
+}
+
+"""create Asset input"""
+input CreateAssetInput {
+  sourceUrl: String
+  path: String!
+  filename: String!
+  description: String
+  caption: JSON
+  uploadStatus: String
+  mimeType: String
+  title: String
+  credit: JSON
+  s3Key: String
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type CreateAssetResult {
+  clientMutationId: String
+  result: Asset
+}
+
+"""create Characters input"""
+input CreateCharactersInput {
+  characterName: String
+  characters: CharactersCharactersInput!
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type CreateCharactersResult {
+  clientMutationId: String
+  result: Characters
+}
+
+"""create Spells input"""
+input CreateSpellsInput {
+  name: String
+  repeater: [SpellsRepeaterInput]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type CreateSpellsResult {
+  clientMutationId: String
+  result: Spells
+}
+
+"""create TsStaticSite input"""
+input CreateTsStaticSiteInput {
+  title: String!
+  baseUrl: String
+  provider: String!
+  idKey: String
+  secretKey: String
+  destination: String!
+  environmentVariables: [TsStaticSiteEnvironmentVariablesInput]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type CreateTsStaticSiteResult {
+  clientMutationId: String
+  result: TsStaticSite
+}
+
+"""delete Animals input"""
+input DeleteAnimalsInput {
+  clientMutationId: String
+  _id: ID!
+}
+
+type DeleteAnimalsResult {
+  clientMutationId: String
+  result: Boolean
+}
+
+"""delete Asset input"""
+input DeleteAssetInput {
+  clientMutationId: String
+  _id: ID!
+}
+
+type DeleteAssetResult {
+  clientMutationId: String
+  result: Boolean
+}
+
+"""delete Characters input"""
+input DeleteCharactersInput {
+  clientMutationId: String
+  _id: ID!
+}
+
+type DeleteCharactersResult {
+  clientMutationId: String
+  result: Boolean
+}
+
+"""delete Spells input"""
+input DeleteSpellsInput {
+  clientMutationId: String
+  _id: ID!
+}
+
+type DeleteSpellsResult {
+  clientMutationId: String
+  result: Boolean
+}
+
+"""delete TsStaticSite input"""
+input DeleteTsStaticSiteInput {
+  clientMutationId: String
+  _id: ID!
+}
+
+type DeleteTsStaticSiteResult {
+  clientMutationId: String
+  result: Boolean
+}
+
+type HttpHeader {
+  key: String
+  value: String
+}
+
+input HttpHeaderInput {
+  key: String
+  value: String
+}
+
+type ImportResultType {
+  countImported: Int
+  ids: [ID]
+  rejectedItems: [RejectedImportItem]
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutations {
+  """Create Project"""
+  tsCreateProject(name: String!, template: String, type: String, defaultTimezone: String!): TSProjectListItem
+
+  """Create a Lock"""
+  tsCreateLock(contentTypeId: ID, id: ID): TSLock
+
+  """Extend a lock Project"""
+  tsExtendLock(contentTypeId: ID, id: ID): TSLock
+
+  """Remove a Lock"""
+  tsRemoveLock(contentTypeId: ID, id: ID): Boolean
+
+  """Remove a Lock"""
+  tsBreakLock(contentTypeId: ID, id: ID): Boolean
+
+  """Create an API Key"""
+  tsCreateApiKey(name: String, role: String): TSApiKey
+
+  """Delete an API Key"""
+  tsDeleteApiKey(id: ID): Boolean
+
+  """Update webhooks"""
+  tsUpdateWebhooks(input: TSWebhooksInput!): TSWebhooks
+
+  """Update Default Locale for Project"""
+  tsUpdateDefaultLocale(defaultLocale: String!, version: Int!): JSON
+
+  """Add Locale to Project"""
+  tsAddLocale(locale: String!, version: Int!): JSON
+
+  """Remove Locale from Project"""
+  tsRemoveLocale(locale: String!, version: Int!): JSON
+
+  """Add a ContentType to the project Schema"""
+  tsAddContentType(projectId: ID, version: Int!, contentType: JSON!): JSON
+
+  """Remove a ContentType from the project Schema"""
+  tsRemoveContentType(projectId: ID, version: Int!, contentTypeId: ID!): JSON
+
+  """Update a ContentType in the project Schema"""
+  tsUpdateContentType(projectId: ID, version: Int!, contentTypeId: ID!, contentType: JSON!): JSON
+
+  """Update Project"""
+  tsUpdateProject(id: ID, name: String, avatarId: ID, defaultTimezone: String): TSProject
+
+  """Update Project Billing"""
+  tsUpdateProjectBilling(id: ID, token: String, planId: String, coupon: String, email: String): TSBilling
+
+  """Update Project Permissions"""
+  tsUpdateProjectPermissions(userId: ID, role: String!): TSPermissions
+
+  """Update Invite Role"""
+  tsUpdateInviteRole(email: String!, role: String!): TSInvite
+
+  """Cancel Project Invite"""
+  tsCancelProjectInvite(email: String!): TSInvite
+
+  """Remove Project Member"""
+  tsRemoveProjectMember(userId: ID): TSPermissions
+
+  """Deactivate project"""
+  tsDeleteProject(id: ID!): Boolean
+
+  """Register a setup step as completed"""
+  tsCompleteSetupStep(stepKey: String!): Boolean
+
+  """Update a token for a integration provider"""
+  tsUpdateIntegrationToken(provider: String!, token: String): TSIntegrationToken
+
+  """Initiate upload process for asset(s)"""
+  uploadAssets(projectId: ID, files: [TSFile]!): [Upload]
+
+  """Replace an asset file"""
+  replaceAsset(projectId: ID, _id: ID!, _version: Int!, file: TSFile!): Upload
+
+  """Create Asset"""
+  createAsset(input: CreateAssetInput!): CreateAssetResult
+
+  """Update Asset"""
+  updateAsset(input: UpdateAssetInput!, structure: [ContentStructureInput], locale: String, enableLocaleFallback: Boolean = true): UpdateAssetResult
+
+  """Delete Asset"""
+  deleteAsset(input: DeleteAssetInput!): DeleteAssetResult
+
+  """
+  Create Asset items from Asset csv, only single layer string fields are supported.
+  """
+  importAssetListFromCSV(assetId: ID!, importColumns: [String]): ImportResultType
+
+  """Create TsStaticSite"""
+  createTsStaticSite(input: CreateTsStaticSiteInput!): CreateTsStaticSiteResult
+
+  """Update TsStaticSite"""
+  updateTsStaticSite(input: UpdateTsStaticSiteInput!, structure: [ContentStructureInput], locale: String, enableLocaleFallback: Boolean = true): UpdateTsStaticSiteResult
+
+  """Delete TsStaticSite"""
+  deleteTsStaticSite(input: DeleteTsStaticSiteInput!): DeleteTsStaticSiteResult
+
+  """Create Characters"""
+  createCharacters(input: CreateCharactersInput!): CreateCharactersResult
+
+  """Update Characters"""
+  updateCharacters(input: UpdateCharactersInput!, structure: [ContentStructureInput], locale: String, enableLocaleFallback: Boolean = true): UpdateCharactersResult
+
+  """Delete Characters"""
+  deleteCharacters(input: DeleteCharactersInput!): DeleteCharactersResult
+
+  """
+  Create Characters items from Asset csv, only single layer string fields are supported.
+  """
+  importCharactersListFromCSV(assetId: ID!, importColumns: [String]): ImportResultType
+
+  """Create Spells"""
+  createSpells(input: CreateSpellsInput!): CreateSpellsResult
+
+  """Update Spells"""
+  updateSpells(input: UpdateSpellsInput!, structure: [ContentStructureInput], locale: String, enableLocaleFallback: Boolean = true): UpdateSpellsResult
+
+  """Delete Spells"""
+  deleteSpells(input: DeleteSpellsInput!): DeleteSpellsResult
+
+  """
+  Create Spells items from Asset csv, only single layer string fields are supported.
+  """
+  importSpellsListFromCSV(assetId: ID!, importColumns: [String]): ImportResultType
+
+  """Create Animals"""
+  createAnimals(input: CreateAnimalsInput!): CreateAnimalsResult
+
+  """Update Animals"""
+  updateAnimals(input: UpdateAnimalsInput!, structure: [ContentStructureInput], locale: String, enableLocaleFallback: Boolean = true): UpdateAnimalsResult
+
+  """Delete Animals"""
+  deleteAnimals(input: DeleteAnimalsInput!): DeleteAnimalsResult
+
+  """
+  Create Animals items from Asset csv, only single layer string fields are supported.
+  """
+  importAnimalsListFromCSV(assetId: ID!, importColumns: [String]): ImportResultType
+}
+
+"""Object representing a rejected item processed during the import."""
+type RejectedImportItem {
+  """Index of the rejected item in the import."""
+  itemNumber: Int!
+
+  """Beautified error messages interpreted from the raw error objects."""
+  errors: [String]
+
+  """Raw error objects from the validator."""
+  rawErrors: [JSON]
+}
+
+"""Root of the Schema"""
+type Root {
+  """Activity Log"""
+  tsGetActivityLog(filters: JSON): [TSActivityLogItem]
+
+  """Most Recent Static Site Deploys"""
+  tsGetLatestSiteDeploys: [TSActivityLogItem]
+
+  """List of Projects"""
+  tsGetProjectList: [TSProjectListItem]
+
+  """List of active Project Members and the content they have open"""
+  tsGetProjectMembersLocationList: [TSMemberLocation]
+
+  """List of project templates available for import."""
+  tsGetProjectTemplateList: [TSProjectTemplate]
+
+  """Get the status of a site deploy"""
+  tsSiteDeployStatus(siteId: ID): TSSite
+
+  """Get the status of a site deploy"""
+  tsGetContentUsage(id: ID!): [TSContentUsage]
+
+  """Get a Lock by id"""
+  tsIsLocked(contentTypeId: ID, id: ID): TSLock
+
+  """Get an API key by key and project"""
+  tsGetApiKey(apiKey: String): TSApiKey
+
+  """Get all API Keys for a Project"""
+  tsGetApiKeysByProject: [TSApiKey]
+
+  """Get all webhooks"""
+  tsGetWebhooks: TSWebhooks
+
+  """Get specific webhook history item by webhookUrl and invocationTime."""
+  tsGetWebhookHistoryItem(webhookUrl: String!, invocationTime: String): TSWebhookHistory
+
+  """
+  Get webhook history items for a webhookUrl. Filter for a window of invocationTime with the from and to arguments.
+  """
+  tsGetWebhookHistory(
+    webhookUrl: String!
+
+    """Filter start time, inclusive, as an ISO8601 date string."""
+    from: String
+
+    """Filter end time, inclusive, as an ISO8601 date string."""
+    to: String
+  ): [TSWebhookHistory]
+
+  """Get Locales for Project"""
+  tsGetLocales: TSLocales
+
+  """Get a Project by id"""
+  tsGetProject(id: ID): TSProject
+
+  """List of Project Members"""
+  tsGetProjectMembers(id: ID): [TSUser]
+
+  """List of Project Members"""
+  tsGetProjectAdmins: [TSUser]
+
+  """List of Project Plans"""
+  tsGetPlanList: [TSBillingPlan]
+
+  """List all payments for a project"""
+  tsGetPaymentList(cursor: ID): TSBillingPaymentCursorPaginatedList
+  search(
+    terms: String
+    contentTypeNames: [String]
+    contentTypeIds: [String]
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TSSearchResults
+  taxonomySuggest(
+    terms: String
+    contentTypeNames: [String]
+    contentTypeIds: [String]
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TSSuggestionPaginatedList
+
+  """Returns a list asset in natural order."""
+  getAssetList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AssetPaginatedList
+
+  """Get a asset by ID"""
+  getAsset(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Asset
+
+  """Search the asset index by keyword"""
+  searchAssetIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AssetSearchResults
+
+  """Returns a list tsStaticSite in natural order."""
+  getTsStaticSiteList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TsStaticSitePaginatedList
+
+  """Get a tsStaticSite by ID"""
+  getTsStaticSite(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): TsStaticSite
+
+  """Search the tsStaticSite index by keyword"""
+  searchTsStaticSiteIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TsStaticSiteSearchResults
+
+  """Returns a list characters in natural order."""
+  getCharactersList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): CharactersPaginatedList
+
+  """Get a characters by ID"""
+  getCharacters(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Characters
+
+  """Search the characters index by keyword"""
+  searchCharactersIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): CharactersSearchResults
+
+  """Returns a list spells in natural order."""
+  getSpellsList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): SpellsPaginatedList
+
+  """Get a spells by ID"""
+  getSpells(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Spells
+
+  """Search the spells index by keyword"""
+  searchSpellsIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): SpellsSearchResults
+
+  """Returns a list animals in natural order."""
+  getAnimalsList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AnimalsPaginatedList
+
+  """Get a animals by ID"""
+  getAnimals(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Animals
+
+  """Search the animals index by keyword"""
+  searchAnimalsIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AnimalsSearchResults
+  withContext(locale: String, enableLocaleFallback: Boolean): WithContext
+}
+
+"""
+All the important spells that help you navigate your way through the Wizarding World
+"""
+type Spells implements TSSearchable {
+  name: String
+  repeater: [SpellsRepeater]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  searchSummary: String
+}
+
+type SpellsPaginatedList {
+  results: [Spells] @deprecated(reason: "Use items instead")
+  items: [Spells]
+  total: Int
+}
+
+type SpellsRepeater {
+  object: SpellsRepeaterObject
+}
+
+input SpellsRepeaterInput {
+  object: SpellsRepeaterObjectInput
+}
+
+type SpellsRepeaterObject {
+  cursedSpell: [String]
+  spellDecription: String
+  handMovement: [String]
+}
+
+input SpellsRepeaterObjectInput {
+  cursedSpell: [String]
+  spellDecription: String
+  handMovement: [String]
+}
+
+"""A Spells search result"""
+type SpellsSearchResult {
+  searchSummary: String
+  _updatedAt: String
+  _createdAt: String
+  _enabledAt: String
+  _enabled: Boolean
+  name: String
+  _id: String
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+}
+
+"""Spells search results"""
+type SpellsSearchResults {
+  results: [SpellsSearchResult]
+  total: Int
+}
+
+type TSActivityLogItem {
+  activityType: String
+  userId: ID
+  username: String
+  projectId: ID
+  siteId: ID
+  stage: String
+  description: String
+  timestamp: String
+  metadata: JSON
+}
+
+type TSApiKey {
+  projectId: ID
+  name: String
+  role: String
+  permissions: JSON
+  lastUsed: String
+  apiKey: String
+  id: ID
+}
+
+type TSBilling {
+  enterprise: Boolean
+  cardDetails: TSBillingCardDetails
+  plan: TSBillingPlan
+  discount: TSBillingDiscount
+  trialEnd: String
+  email: String
+}
+
+type TSBillingAmount {
+  total: Int
+  subtotal: Int
+  refund: Int
+  discount: TSBillingDiscount
+}
+
+type TSBillingCardDetails {
+  brand: String
+  cvcCheck: String
+  expMonth: Int
+  expYear: Int
+  last4: String
+}
+
+type TSBillingDiscount {
+  percentOff: Int
+  amountOff: Int
+  duration: String
+  code: String
+}
+
+type TSBillingEntitlements {
+  users: Int
+  apiRequests: Int
+  apiRateLimit: Int
+  contentEntries: Int
+  deployTargets: Int
+  webhooks: Boolean
+  locales: Int
+}
+
+type TSBillingPayment {
+  date: String
+  plan: String
+  status: String
+  amount: TSBillingAmount
+  method: String
+}
+
+type TSBillingPaymentCursorPaginatedList {
+  items: [TSBillingPayment]
+  cursor: ID
+  hasMore: Boolean
+}
+
+type TSBillingPlan {
+  id: String
+  name: String
+  amount: Int
+  created: String
+  currency: String
+  interval: String
+  intervalCount: Int
+  entitlements: TSBillingEntitlements
+  trialPeriodDays: String
+}
+
+type TSContentLocation {
+  contentId: String
+  contentTypeId: String
+  hasLock: Boolean
+}
+
+type TSContentUsage {
+  siteId: ID
+  siteTitle: String
+  deployedAt: String
+  baseUrl: String
+  usages: [TSPathUsage]
+}
+
+input TSFile {
+  name: String!
+  type: String!
+}
+
+input TSImagesConfig {
+  """Default image parameters. See https://docs.imgix.com/apis/url """
+  default: JSON
+
+  """Small image parameters. See https://docs.imgix.com/apis/url """
+  small: JSON
+
+  """Medium image parameters. See https://docs.imgix.com/apis/url """
+  medium: JSON
+
+  """Large image parameters. See https://docs.imgix.com/apis/url """
+  large: JSON
+}
+
+type TSIntegrationToken {
+  provider: String!
+  token: String
+}
+
+type TSInvite {
+  inviteCode: ID
+  email: ID
+  role: String
+  projectId: ID
+  inviterUserId: ID
+  status: String
+}
+
+type TSLocales {
+  defaultLocale: String!
+  locales: [String]
+  version: Int!
+}
+
+type TSLock {
+  user: TSUser
+  expires: String
+}
+
+type TSMemberLocation {
+  userId: String!
+  contentList: [TSContentLocation]
+}
+
+type TSPathUsage {
+  path: String
+  depth: Int
+}
+
+type TSPermissions {
+  userId: ID
+  projectId: ID
+  role: String
+}
+
+"""
+A Project is you main workspace it stores the content that powers your API
+"""
+type TSProject {
+  id: ID
+  name: String
+  template: TSProjectTemplate
+  invite: String
+  users: [TSUser]
+
+  """Takeshape project schema"""
+  schema: JSON
+
+  """Takeshape project schema"""
+  billing: TSBilling
+
+  """Project status object"""
+  status: JSON
+
+  """Project avatar"""
+  avatar: BaseAsset
+
+  """Default project timezone"""
+  defaultTimezone: String!
+  integrationTokens: [TSIntegrationToken]
+}
+
+"""
+A Project is you main workspace it stores the content that powers your API
+"""
+type TSProjectListItem {
+  id: ID
+  name: String
+  invite: String
+  type: String
+
+  """Project status object"""
+  status: JSON
+
+  """Project avatar"""
+  avatar: BaseAsset
+
+  """Default project timezone"""
+  defaultTimezone: String!
+}
+
+"""A project template available for import."""
+type TSProjectTemplate {
+  id: String!
+  name: String!
+  description: String
+  avatarPath: String
+  glitchProjectName: String
+  sourcePath: String!
+}
+
+input TSRelationshipInput {
+  contentTypeId: String!
+  id: String!
+}
+
+type TSResourceActions {
+  resource: String!
+  actions: [String]
+}
+
+input TSResourceActionsInput {
+  resource: String!
+  actions: [String]
+}
+
+interface TSSearchable {
+  _id: ID
+  _contentTypeId: String
+  searchSummary: String
+}
+
+"""TS search results"""
+type TSSearchResults {
+  results: [TSSearchable]
+  total: Int
+}
+
+input TSSearchSort {
+  field: String!
+
+  """"asc" for ascending or "desc" for descending"""
+  order: String!
+}
+
+type TSSite {
+  siteId: ID
+  status: String
+  message: String
+}
+
+"""The built-in TakeShape static site model"""
+type TsStaticSite implements TSSearchable {
+  title: String!
+  baseUrl: String
+  provider: String!
+  idKey: String
+  secretKey: String
+  destination: String!
+  environmentVariables: [TsStaticSiteEnvironmentVariables]
+  _id: ID
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  searchSummary: String
+}
+
+type TsStaticSiteEnvironmentVariables {
+  name: String
+  value: String
+}
+
+input TsStaticSiteEnvironmentVariablesInput {
+  name: String
+  value: String
+}
+
+type TsStaticSitePaginatedList {
+  results: [TsStaticSite] @deprecated(reason: "Use items instead")
+  items: [TsStaticSite]
+  total: Int
+}
+
+"""A TsStaticSite search result"""
+type TsStaticSiteSearchResult {
+  searchSummary: String
+  _updatedAt: String
+  _createdAt: String
+  _enabledAt: String
+  _enabled: Boolean
+  title: String
+  baseUrl: String
+  provider: String
+  idKey: String
+  destination: String
+  _id: String
+  _version: Int
+  _contentTypeId: String
+  _contentTypeName: String
+}
+
+"""TsStaticSite search results"""
+type TsStaticSiteSearchResults {
+  results: [TsStaticSiteSearchResult]
+  total: Int
+}
+
+type TSSuggestion {
+  _id: ID
+  _contentTypeId: ID
+  _contentTypeName: String
+  text: String
+  summary: String
+}
+
+type TSSuggestionPaginatedList {
+  results: [TSSuggestion] @deprecated(reason: "Use items instead")
+  items: [TSSuggestion]
+  total: Int
+}
+
+type TSUser {
+  id: ID
+  email: String
+  fullName: String
+  role: String
+  avatarPath: String
+}
+
+type TSWebhook {
+  webhookUrl: String!
+  headers: [HttpHeader]
+  resourceActions: [TSResourceActions]
+}
+
+type TSWebhookHistory {
+  _invocationTime: String!
+  projectId: ID!
+  webhookUrl: String!
+  stats: TSWebhookHistoryStats!
+}
+
+type TSWebhookHistoryError {
+  name: String
+  message: String
+}
+
+type TSWebhookHistoryRequest {
+  url: String!
+  headers: JSON
+  body: JSON
+}
+
+type TSWebhookHistoryResponse {
+  status: String!
+  statusText: String
+  url: String!
+  headers: JSON
+  body: JSON
+}
+
+type TSWebhookHistoryStats {
+  succeeded: Boolean!
+  retrying: Boolean!
+  invocationStartTime: String!
+  invocationDuration: Int!
+  request: TSWebhookHistoryRequest!
+  response: TSWebhookHistoryResponse
+  error: TSWebhookHistoryError
+}
+
+input TSWebhookInput {
+  webhookUrl: String!
+  headers: [HttpHeaderInput]
+  resourceActions: [TSResourceActionsInput]
+}
+
+type TSWebhooks {
+  secret: String
+  webhooks: [TSWebhook]
+}
+
+input TSWebhooksInput {
+  resetSecret: Boolean
+  webhooks: [TSWebhookInput]
+}
+
+union UndefinedReference = Animals
+
+type UndefinedReferencePaginatedList {
+  results: [UndefinedReference] @deprecated(reason: "Use items instead")
+  items: [UndefinedReference]
+  total: Int
+}
+
+"""update Animals input"""
+input UpdateAnimalsInput {
+  name: String
+  description: String
+  photo: [AnimalsPhotoInput]
+  _id: ID!
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type UpdateAnimalsResult {
+  clientMutationId: String
+  result: Animals
+}
+
+"""update Asset input"""
+input UpdateAssetInput {
+  sourceUrl: String
+  path: String
+  filename: String
+  description: String
+  caption: JSON
+  uploadStatus: String
+  mimeType: String
+  title: String
+  credit: JSON
+  s3Key: String
+  _id: ID!
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type UpdateAssetResult {
+  clientMutationId: String
+  result: Asset
+}
+
+"""update Characters input"""
+input UpdateCharactersInput {
+  characterName: String
+  characters: CharactersCharactersInput
+  _id: ID!
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type UpdateCharactersResult {
+  clientMutationId: String
+  result: Characters
+}
+
+"""update Spells input"""
+input UpdateSpellsInput {
+  name: String
+  repeater: [SpellsRepeaterInput]
+  _id: ID!
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type UpdateSpellsResult {
+  clientMutationId: String
+  result: Spells
+}
+
+"""update TsStaticSite input"""
+input UpdateTsStaticSiteInput {
+  title: String
+  baseUrl: String
+  provider: String
+  idKey: String
+  secretKey: String
+  destination: String
+  environmentVariables: [TsStaticSiteEnvironmentVariablesInput]
+  _id: ID!
+  _version: Int
+  _contentTypeId: String
+  _createdAt: String
+  _updatedAt: String
+  _enabled: Boolean
+  _enabledAt: String
+  clientMutationId: String
+}
+
+type UpdateTsStaticSiteResult {
+  clientMutationId: String
+  result: TsStaticSite
+}
+
+"""A project file stored on s3"""
+type Upload {
+  uploadUrl: ID
+  asset: Asset
+}
+
+"""This query allow you to pass context to your queries"""
+type WithContext {
+  search(
+    terms: String
+    contentTypeNames: [String]
+    contentTypeIds: [String]
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TSSearchResults
+  taxonomySuggest(
+    terms: String
+    contentTypeNames: [String]
+    contentTypeIds: [String]
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TSSuggestionPaginatedList
+
+  """Returns a list asset in natural order."""
+  getAssetList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AssetPaginatedList
+
+  """Get a asset by ID"""
+  getAsset(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Asset
+
+  """Search the asset index by keyword"""
+  searchAssetIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AssetSearchResults
+
+  """Returns a list tsStaticSite in natural order."""
+  getTsStaticSiteList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TsStaticSitePaginatedList
+
+  """Get a tsStaticSite by ID"""
+  getTsStaticSite(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): TsStaticSite
+
+  """Search the tsStaticSite index by keyword"""
+  searchTsStaticSiteIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): TsStaticSiteSearchResults
+
+  """Returns a list characters in natural order."""
+  getCharactersList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): CharactersPaginatedList
+
+  """Get a characters by ID"""
+  getCharacters(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Characters
+
+  """Search the characters index by keyword"""
+  searchCharactersIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): CharactersSearchResults
+
+  """Returns a list spells in natural order."""
+  getSpellsList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): SpellsPaginatedList
+
+  """Get a spells by ID"""
+  getSpells(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Spells
+
+  """Search the spells index by keyword"""
+  searchSpellsIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): SpellsSearchResults
+
+  """Returns a list animals in natural order."""
+  getAnimalsList(
+    locale: String
+    enableLocaleFallback: Boolean = true
+
+    """Filter out content that is not enabled. Defaults to true."""
+    onlyEnabled: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AnimalsPaginatedList
+
+  """Get a animals by ID"""
+  getAnimals(_id: ID!, locale: String, enableLocaleFallback: Boolean = true): Animals
+
+  """Search the animals index by keyword"""
+  searchAnimalsIndex(
+    locale: String
+    enableLocaleFallback: Boolean = true
+    terms: String
+
+    """The offset from the first result you want to fetch."""
+    from: Int
+
+    """The maximum number of items to return."""
+    size: Int
+
+    """An elasticsearch style filter. Overrides onlyEnabled."""
+    filter: JSON
+
+    """An list of fields to sort by."""
+    sort: [TSSearchSort]
+  ): AnimalsSearchResults
+}

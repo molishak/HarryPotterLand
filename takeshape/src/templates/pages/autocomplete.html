@@ -59,15 +59,17 @@
 	<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
 
 	<script>
-		var client = algoliasearch('OBBTFVLBPT', 'b2bb1464328d945084725777e82f0536');
-		var index = client.initIndex('cheese');
+		var client = algoliasearch('CC3ECNJNA3', 'bd4b136c9b29949f8815a0cf1033d4ab');
+		var index = client.initIndex('characters');
+
 		$('#autocomplete').autocomplete({ hint: false }, [
 			{
 				source: $.fn.autocomplete.sources.hits(index, { hitsPerPage: 10 }),
-				displayKey: 'name',
+				displayKey: 'characterName',
 				templates: {
 					suggestion: function(suggestion) {
-						return suggestion._highlightResult.name.value;
+						console.log(suggestion._highlightResult)
+						return suggestion._highlightResult.characterName.value;
 					}
 				}
 			}
